@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react"
+  },
+  "include": ["src/**/*", "server/**/*"],
+  "exclude": ["node_modules", "./dist"]
+}
+
+// {
+//     "compilerOptions": {
+//       "target": "ES2015",
+//       "module": "commonjs",
+//       "strict": true,
+//       "esModuleInterop": true,
+//       "skipLibCheck": true,
+//       "forceConsistentCasingInFileNames": true
+//     },
+//     "$schema": "https://json.schemastore.org/tsconfig",
+//     "display": "Recommended"
+//   },
+
+// //   from Rachel's TS unit
+//   {
+//     "compilerOptions": {
+//       "module": "commonjs",
+//       "esModuleInterop": true,
+//       "noImplicitAny": true,
+//       "removeComments": true,
+//       "preserveConstEnums": true,
+//       "sourceMap": true,
+//       "jsx": "react"
+//     },
+//     "include": ["src/**/*"],
+//     "exclude": ["node_modules"]
+//   },
+
+//   //from Caroline's TS unit
+//   {
+//     "compilerOptions": {
+//       "module": "commonjs",
+//       "esModuleInterop": true,
+//       "jsx": "react",
+//       "noImplicitAny": true
+//     },
+//   "include": ["src/**/*"],
+//   "exclude": ["node_modules"]
+// }
