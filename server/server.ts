@@ -20,7 +20,7 @@ app.use(express.json());
 /**
  * handle requests for static files
 //  */
-// app.use('/assets', express.static(path.resolve(__dirname, '../src/assets')));
+app.use('/assets', express.static(path.resolve(__dirname, '../src/assets')));
 
 // route handler to respond with main app
 app.get('/', (req: Request, res: Response) => {
