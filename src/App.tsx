@@ -4,7 +4,7 @@ const App = () => {
   return (
     <div>
       <h1>Macon</h1>
-      {/* <img src='../assets/joblit_no_background.png' /> */}
+      <img src='../assets/joblit_no_background.png' />
     </div>
   );
 };
