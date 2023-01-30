@@ -5,13 +5,18 @@ import express, {
   NextFunction,
   RequestHandler,
 } from 'express';
+import cors from 'cors';
 import { ServerError } from '../types';
 import path from 'path';
 
+const PORT: number = 3000;
 const app: Express = express();
+
+// use cors
+app.use(cors());
+
 app.use(express.json());
 
-const PORT: number = 3000;
 /**
  * handle requests for static files
 //  */
