@@ -19,14 +19,19 @@ app.use(cors());
 
 app.use(express.json());
 
-/**
- * handle requests for static files
-//  */
-app.use('/assets', express.static(path.resolve(__dirname, '../src/assets')));
+//handle user requests
+app.post(
+  "/signup",
+  userController.createUser,
+  (req: Request, res: Response) => {
+    console.log("SUCCESS! User created");
+    res.send();
+  }
+);
 
-// route handler to respond with main app
-app.get('/', (req: Request, res: Response) => {
-  return res.sendFile(path.join(__dirname, '../src/index.html'));
+app.get("/users", userController.getAllUsers, (req: Request, res: Response) => {
+  console.log("SUCCESS! You got all users");
+  res.send(res.locals.users);
 });
 
 app.use('/test', (req: Request, res: Response) => {
