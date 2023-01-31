@@ -10,6 +10,9 @@ type cardProps = {
 };
 
 const DisplayCard = (props: cardProps) => {
+  console.log('in the display card function');
+  console.log('props.jobId: ', props.jobId);
+
   const cardStyle = {
     border: '1px solid black',
     borderRadius: '5px',
@@ -23,10 +26,10 @@ const DisplayCard = (props: cardProps) => {
 
   return (
     <div className='card' style={cardStyle}>
-      <label htmlFor='jobModal' className='btn'>
+      <label htmlFor={`jobModal${props.jobId}`} className='btn'>
         Details
       </label>
-      <JobModal />
+      <JobModal jobId={props.jobId} />
       <div className='card-body'>
         <div className='card-body-company'>{props.company}</div>
         <div className='card-body-position'>{props.position}</div>

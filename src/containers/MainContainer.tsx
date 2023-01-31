@@ -39,6 +39,10 @@ const MainContainer = () => {
       <div className='column-btn'>
         <button>+</button>
       </div>
+      <label htmlFor='addJobModal' className='btn'>
+        Add Application
+      </label>
+      <AddJobModal />
     </div>
   );
 };

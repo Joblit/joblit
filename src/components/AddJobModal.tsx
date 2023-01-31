@@ -75,8 +75,8 @@ function AddJobModal(props: any) {
               type='date'
               required
             ></input>
-            <label htmlFor='salaryRange'>Salary Range</label>
-            <input id='salaryRange' name='salaryRange' type='text'></input>
+            <label htmlFor='salary'>Salary Range</label>
+            <input id='salary' name='salaryRange' type='text'></input>
             <label htmlFor='contactPerson'>Contact Person</label>
             <input id='contactPerson' name='contactPerson' type='text'></input>
             <label htmlFor='contactEmail'>Contact Email</label>

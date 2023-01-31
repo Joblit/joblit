@@ -1,5 +1,7 @@
 import React from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { RootState } from '../redux/store';
 import AddJobModal from './AddJobModal';
 import Card from './Card';
 
@@ -56,15 +58,22 @@ const dummyCardInfo = [
 ];
 
 const ColumnCreator = (props: titleProps) => {
-  const rows = dummyCardInfo.map((item, index) => {
+  const applicationsList = useAppSelector(
+    (state: RootState) => state.jobs.applications
+  );
+
+  console.log(applicationsList);
+
+  const rows = applicationsList.map((item, index) => {
+    console.log('jobId: ', item.jobId);
     if (item.status === props.title) {
       return (
         <Card
           key={index}
           jobId={item.jobId}
-          company={item.company}
-          position={item.position}
-          onSiteRemote={item.onSiteRemote}
+          company={item.companyName}
+          position={item.jobTitle}
+          onSiteRemote={item.location}
         />
       );
     }
@@ -73,10 +82,6 @@ const ColumnCreator = (props: titleProps) => {
   return (
     <div className='column' style={columnStyle}>
       <div className='text-secondary'>{props.title}</div>
-      <label htmlFor='addJobModal' className='btn'>
-        Add Application
-      </label>
-      <AddJobModal />
       <div className='column-body'>
         <div className='column-body-content'>{rows}</div>
       </div>

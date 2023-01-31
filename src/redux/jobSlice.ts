@@ -6,13 +6,14 @@ interface ActionInterface {
   companyName: string;
   jobTitle: string;
   jobDescription?: string;
-  location?: string;
+  location: string;
   applicationDate?: string;
   salary?: string;
   contactPerson?: string;
   contactEmail?: string;
   benefits?: string;
   notes?: string;
+  status?: 'Applied' | 'Interview' | 'Rejected' | 'Offer';
 }
 
 interface jobSliceState {
@@ -25,6 +26,7 @@ const initialState: jobSliceState = {
       jobId: 0,
       companyName: '',
       jobTitle: '',
+      location: '',
     },
   ],
 };
@@ -35,6 +37,7 @@ export const jobSlice = createSlice({
   initialState,
   reducers: {
     addJob: (state, action: PayloadAction<ActionInterface>) => {
+      action.payload.status = 'Applied';
       state.applications.push(action.payload);
       console.log('updated applications');
     },
