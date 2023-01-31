@@ -1,10 +1,12 @@
 import React from 'react';
+import MainContainer from './containers/MainContainer';
+import Navbar from './containers/Navbar';
 
 const App = () => {
   return (
     <div>
-      <h1>Macon</h1>
-      <img src='../assets/joblit_no_background.png' />
+      <Navbar />
+      <MainContainer />
     </div>
   );
 };
