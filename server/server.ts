@@ -4,10 +4,8 @@ import express, {
   Response,
   NextFunction,
   RequestHandler,
-} from 'express';
-import cors from 'cors';
-import { ServerError } from '../types';
-import path from 'path';
+import { userController } from "./controllers/userController";
+import { applicationController } from "./controllers/applicationController";
 
 const PORT: number = 3000;
 const app: Express = express();
