@@ -9,29 +9,70 @@ import cors from "cors";
 import { ServerError } from "../types";
 import path from "path";
 import { userController } from "./controllers/userController";
-import { applicationController } from "./controllers/applicationController";
+import { appRouter } from "./routes/appRouter";
+import { cookieController } from "./controllers/cookieController";
+import { sessionController } from "./controllers/sessionController";
+const cookieParser = require('cookie-parser');
+// const bodyParser = require('body-parser');
 
 const PORT: number = 3000;
 const app: Express = express();
 
 // use cors
 app.use(cors());
-
+//use express json
 app.use(express.json());
+// app.use(bodyParser.json());
+// app.use(express.urlencoded({ extended: true }));
+
+// add cookie parser
+app.use(cookieParser());
+
+//application router
+app.use('/application', appRouter);
 
 //handle user requests
 app.post(
   "/signup",
   userController.createUser,
   (req: Request, res: Response) => {
-    console.log("SUCCESS! User created");
-    res.send();
+    console.log("SUCCESS! User created", res.locals.newUser);
+    res.send(res.locals.newUser);
   }
 );
 
+//login a user
+app.post(
+  "/login",
+  userController.verifyUser,
+  cookieController.setSSIDCookie,
+  sessionController.startSession,
+  (req: Request, res: Response) => {
+    console.log("SUCCESS! User verified", res.locals.user_id);
+    res.send(res.locals.user_id);
+  }
+);
+
+//logout a user
+app.delete("/logout", sessionController.endSession, (req: Request, res: Response) => {
+  return res.status(200).send();
+})
+
+//get all users from database
 app.get("/users", userController.getAllUsers, (req: Request, res: Response) => {
   console.log("SUCCESS! You got all users");
-  res.send(res.locals.users);
+  res.send(res.locals.allUsers);
+});
+
+//delete a user
+app.delete("/user", userController.verifyUser, userController.deleteUser, (req: Request, res: Response) => {
+  console.log("SUCCESS! The user was deleted");
+  res.send(`user with id number:${res.locals.user_id} was deleted`);
+});
+
+//checks if user is logged in
+app.get('/checkSession', sessionController.isLoggedIn, (req, res) => {
+  return res.status(200).json(res.locals.loggedIn);
 });
 
 //handle requests for static files
@@ -40,6 +81,11 @@ app.use("/assets", express.static(path.resolve(__dirname, "../src/assets")));
 // route handler to respond with main app
 app.get("/", (req: Request, res: Response) => {
   return res.sendFile(path.join(__dirname, "../src/index.html"));
+});
+
+// 404 error handler :)
+app.get('*', (req, res) => {
+  return res.status(404).send('This page does not exist.');
 });
 
 //global error handler
