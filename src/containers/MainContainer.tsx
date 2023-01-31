@@ -1,5 +1,7 @@
 import React from 'react';
+import AddJobModal from '../components/AddJobModal';
 import Columns from '../components/ColumnCreator';
+import Modal from '../components/Modal';
 
 const divStyle: {} = {
   display: 'flex',
@@ -31,11 +33,16 @@ const MainContainer = () => {
 
   return (
     <div>
-      <div className="columns-container" style={divStyle}>
+      <div className='columns-container' style={divStyle}>
         {rows}
       </div>
-      <div className="column-btn">
+      <div className='column-btn'>
         <button>+</button>
+      </div>
+      <div className='jobModal'>
+        {/* These will be moved somewhere else to be oppened with a button */}
+        <AddJobModal />
+        <Modal />
       </div>
     </div>
   );
