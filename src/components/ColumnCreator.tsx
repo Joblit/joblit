@@ -1,5 +1,6 @@
 import React from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import AddJobModal from './AddJobModal';
 import Card from './Card';
 
 type titleProps = {
@@ -18,30 +19,35 @@ const columnStyle = {
 
 const dummyCardInfo = [
   {
+    jobId: 1,
     company: 'Google',
     position: 'Software Engineer',
     onSiteRemote: 'remote',
     status: 'Applied',
   },
   {
+    jobId: 2,
     company: 'Shopify',
     position: 'Software Engineer',
     onSiteRemote: 'remote',
     status: 'Applied',
   },
   {
+    jobId: 3,
     company: 'Amazon',
     position: 'Software Engineer',
     onSiteRemote: 'on-site',
     status: 'Interview',
   },
   {
+    jobId: 4,
     company: 'Microsoft',
     position: 'Software Engineer II',
     onSiteRemote: 'hybrid',
     status: 'Rejected',
   },
   {
+    jobId: 5,
     company: 'Netflix',
     position: 'Software Engineer',
     onSiteRemote: 'remote',
@@ -55,6 +61,7 @@ const ColumnCreator = (props: titleProps) => {
       return (
         <Card
           key={index}
+          jobId={item.jobId}
           company={item.company}
           position={item.position}
           onSiteRemote={item.onSiteRemote}
@@ -64,10 +71,14 @@ const ColumnCreator = (props: titleProps) => {
   });
 
   return (
-    <div className="column" style={columnStyle}>
-      <div className="text-secondary">{props.title}</div>
-      <div className="column-body">
-        <div className="column-body-content">{rows}</div>
+    <div className='column' style={columnStyle}>
+      <div className='text-secondary'>{props.title}</div>
+      <label htmlFor='addJobModal' className='btn'>
+        Add Application
+      </label>
+      <AddJobModal />
+      <div className='column-body'>
+        <div className='column-body-content'>{rows}</div>
       </div>
     </div>
   );

@@ -2,30 +2,37 @@ import React from 'react';
 import { useAppSelector } from '../redux/hooks';
 import { RootState } from '../redux/store';
 
+type JobModalProps = {
+  jobId: number;
+};
+
 function JobModal() {
-  const companyName = useAppSelector(
-    (state: RootState) => state.jobs.companyName
+  const jobDetails = useAppSelector(
+    (state: RootState) => state.jobs.applications[0]
   );
-  const jobTitle = useAppSelector((state: RootState) => state.jobs.jobTitle);
-  const jobDescription = useAppSelector(
-    (state: RootState) => state.jobs.jobDescription
-  );
-  const location = useAppSelector((state: RootState) => state.jobs.location);
-  const applicationDate = useAppSelector(
-    (state: RootState) => state.jobs.applicationDate
-  );
+
   return (
-    <div className='modal'>
-      <h2>Company Name: {companyName}</h2>
-      <h3>Job Title: {jobTitle}</h3>
-      <p>Job Description: {jobDescription}</p>
-      <p>Location: {location}</p>
-      <p>Application Date: {applicationDate}</p>
-      {/* <p>Salary: {props.salary}</p>
-      <p>Contact Person: {props.contactName}</p>
-      <p>Contact Email: {props.contactEmail}</p>
-      <p>Benefits: {props.benefits}</p>
-      <p>Notes: {props.notes}</p> */}
+    <div>
+      <input type='checkbox' id='jobModal' className='modal-toggle' />
+      <div className='modal'>
+        <div className='modal-box w-11/12 max-w-5xl'>
+          <h2>Company Name: {jobDetails.companyName}</h2>
+          <h3>Job Title: {jobDetails.jobTitle}</h3>
+          <p>Job Description: {jobDetails.jobDescription}</p>
+          <p>Location: {jobDetails.location}</p>
+          <p>Application Date: {jobDetails.applicationDate}</p>
+          <p>Salary: {jobDetails.salary}</p>
+          <p>Contact Person: {jobDetails.contactPerson}</p>
+          <p>Contact Email: {jobDetails.contactEmail}</p>
+          <p>Benefits: {jobDetails.benefits}</p>
+          <p>Notes: {jobDetails.notes}</p>
+          <div className='modal-action'>
+            <label htmlFor='jobModal' className='btn'>
+              Close
+            </label>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
