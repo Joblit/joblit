@@ -65,7 +65,7 @@ const ColumnCreator = (props: titleProps) => {
 
   return (
     <div className="column" style={columnStyle}>
-      <div className="column-title">{props.title}</div>
+      <div className="text-secondary">{props.title}</div>
       <div className="column-body">
         <div className="column-body-content">{rows}</div>
       </div>
