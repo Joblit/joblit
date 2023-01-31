@@ -1,19 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { addJob } from '../redux/jobSlice';
+import { useAppDispatch } from '../redux/hooks';
 
 // current expected props:
 // userId string
 // addJob function that will take in the form information and the userId and bubble up to the container and be a dispatch
 
 function AddJobModal(props: any) {
+  const dispatch = useAppDispatch();
+
+  function addJobFromModal(event: any) {
+    // prevent the form from actually submitting
+    event.preventDefault();
+    // get the job title from the form value
+    const companyName = event.target.companyName.value;
+    const jobTitle = event.target.jobTitle.value;
+    const jobDescription = event.target.jobDescription.value;
+    const location = event.target.location.value;
+    const applicationDate = event.target.applicationDate.value;
+    // dispatch the action to the addJob fonctuon from the job Slice, pass in the jobTitle string
+    dispatch(
+      addJob({
+        companyName,
+        jobTitle,
+        jobDescription,
+        location,
+        applicationDate,
+      })
+    );
+  }
   return (
     <div className='modal'>
-      <form
-        id='addJobForm'
-        onSubmit={() => {
-          props.addJob(props.userId);
-        }}
-      >
+      <form id='addJobForm' onSubmit={addJobFromModal}>
         <label htmlFor='companyName'>Company Name</label>
         <input id='companyName' name='companyName' type='text' required></input>
         <label htmlFor='jobTitle'>Job Title</label>
@@ -40,8 +59,8 @@ function AddJobModal(props: any) {
         <label htmlFor='notes'>Notes</label>
         <input id='notes' name='notes' type='text'></input>
         <p>{props.user}</p>
+        <input id='submit' type='submit' value='Add Job'></input>
       </form>
-      <input id='submit' type='submit' value='Add Job'></input>
     </div>
   );
 }
