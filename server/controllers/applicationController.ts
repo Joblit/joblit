@@ -5,7 +5,8 @@ const db = require("../models/joblitModels");
 export const applicationController = {
   createApplication: (req: Request, res: Response, next: NextFunction) => {
     //  const addUserQuery = {
-    //       text: "INSERT INTO users (first_name, last_name, password, email) VALUES ($1, $2, $3, $4) RETURNING *",
+    //       text: "INSERT INTO users (first_name, last_name, password, email) VALU
+    //  ($1, $2, $3, $4) RETURNING *",
     //       values: [
     //         req.body.first_name,
     //         req.body.last_name,
@@ -22,7 +23,7 @@ export const applicationController = {
     //     });
   },
 
-  getAllApplications: (req: Request, res: Response, next: NextFunction) => {
+  // getAllApplications: (req: Request, res: Response, next: NextFunction) => {
     // const getUserQuery = {
     //   text: "SELECT u.*, p.longitude,p.latitude, p.description, p.name, p.pin_id FROM users u LEFT JOIN pins p ON u.user_id = p.user_id WHERE u.user_id = $1",
     //   // text: 'SELECT u.*, p.longitude,p.latitude, p.description, p.name, p.pin_id',
@@ -52,9 +53,9 @@ export const applicationController = {
     //   // };
     //   return next();
     // });
-  },
+  // },
 
-  getSingleApplication: (req: Request, res: Response, next: NextFunction) => {
+  // getSingleApplication: (req: Request, res: Response, next: NextFunction) => {
     // const getUserQuery = {
     //   text: "SELECT u.*, p.longitude,p.latitude, p.description, p.name, p.pin_id FROM users u LEFT JOIN pins p ON u.user_id = p.user_id WHERE u.user_id = $1",
     //   // text: 'SELECT u.*, p.longitude,p.latitude, p.description, p.name, p.pin_id',
@@ -84,9 +85,9 @@ export const applicationController = {
     //   // };
     //   return next();
     // });
-  },
+  // },
 
-  deleteApplication: (req: Request, res: Response, next: NextFunction) => {
+  // deleteApplication: (req: Request, res: Response, next: NextFunction) => {
     // const deleteUserQuery = {
     //   text: "DELETE FROM users WHERE user_id=$1",
     //   values: [req.body.user_id],
@@ -96,7 +97,7 @@ export const applicationController = {
     //   console.log(data);
     //   return next();
     // });
-  },
+  // },
 
-  updateApplication: (req: Request, res: Response, next: NextFunction) => {},
+  // updateApplication: (req: Request, res: Response, next: NextFunction) => {},
 };
