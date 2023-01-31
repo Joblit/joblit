@@ -1,5 +1,6 @@
 const { Pool } = require("pg");
-
+const dotenv = require('dotenv')
+dotenv.config()
 const PG_URI = process.env.POSTGRES_URI_;
 
 const pool = new Pool({
@@ -16,11 +17,11 @@ module.exports = {
 /* 
 CREATE TABLE users (
   user_id SERIAL PRIMARY KEY,
-	first_name VARCHAR UNIQUE NOT NULL, ---> Should not be unique??
-  last_name VARCHAR UNIQUE NOT NULL, ---> Should not be unique??
+	first_name VARCHAR NOT NULL,
+  last_name VARCHAR NOT NULL,
 	password VARCHAR NOT NULL,
-	email VARCHAR NOT NULL, ----> SHOULD be unique??
-	created_on TIMESTAMP
+	email VARCHAR UNIQUE NOT NULL, 
+	created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 */
 
@@ -36,7 +37,15 @@ CREATE TABLE applications (
   contact_email VARCHAR,
   location VARCHAR,
   status VARCHAR,
-	created_on TIMESTAMP
+	created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+*/
+
+/* 
+CREATE TABLE sessions (
+  session_id SERIAL PRIMARY KEY,
+  cookie_id VARCHAR UNIQUE NOT NULL,
+	created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 */
 
