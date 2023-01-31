@@ -11,7 +11,7 @@ function AddJobModal(props: any) {
   function addJobFromModal(event: any) {
     // prevent the form from actually submitting
     event.preventDefault();
-    // get the job title from the form value
+    // get the job details from the form
     const companyName = event.target.companyName.value;
     const jobTitle = event.target.jobTitle.value;
     const jobDescription = event.target.jobDescription.value;
@@ -22,9 +22,14 @@ function AddJobModal(props: any) {
     const contactEmail = event.target.contactEmail.value;
     const benefits = event.target.benefits.value;
     const notes = event.target.notes.value;
-    console.log('dispatching');
+
+    // reset form values after submission
+    for (let i = 0; i < event.target.children.length; i++) {
+      event.target.children[i].value = '';
+    }
+
     jobId++;
-    // dispatch the action to the addJob fonctuon from the job Slice, pass in the jobTitle string
+    // dispatch the action to the addJob functuon from the job Slice, pass in the jobTitle string
     dispatch(
       addJob({
         jobId,

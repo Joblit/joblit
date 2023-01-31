@@ -1,8 +1,7 @@
 import React from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { useAppSelector } from '../redux/hooks';
 import { RootState } from '../redux/store';
-import AddJobModal from './AddJobModal';
 import Card from './Card';
 
 type titleProps = {
@@ -18,44 +17,6 @@ const columnStyle = {
   width: '200px',
   height: 'auto',
 };
-
-const dummyCardInfo = [
-  {
-    jobId: 1,
-    company: 'Google',
-    position: 'Software Engineer',
-    onSiteRemote: 'remote',
-    status: 'Applied',
-  },
-  {
-    jobId: 2,
-    company: 'Shopify',
-    position: 'Software Engineer',
-    onSiteRemote: 'remote',
-    status: 'Applied',
-  },
-  {
-    jobId: 3,
-    company: 'Amazon',
-    position: 'Software Engineer',
-    onSiteRemote: 'on-site',
-    status: 'Interview',
-  },
-  {
-    jobId: 4,
-    company: 'Microsoft',
-    position: 'Software Engineer II',
-    onSiteRemote: 'hybrid',
-    status: 'Rejected',
-  },
-  {
-    jobId: 5,
-    company: 'Netflix',
-    position: 'Software Engineer',
-    onSiteRemote: 'remote',
-    status: 'Offer',
-  },
-];
 
 const ColumnCreator = (props: titleProps) => {
   const applicationsList = useAppSelector(

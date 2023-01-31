@@ -6,8 +6,9 @@ type jobModalProps = {
   jobId: number;
 };
 
+// Job modal that shows the details of a particular job
 function JobModal(props: jobModalProps) {
-  console.log('props in jobModal: ', props);
+  // Get the job details of the passed in jobId from state
   const jobDetails = useAppSelector(
     (state: RootState) => state.jobs.applications[props.jobId]
   );
@@ -21,8 +22,8 @@ function JobModal(props: jobModalProps) {
       />
       <div className='modal'>
         <div className='modal-box w-11/12 max-w-5xl'>
-          <h2>Company Name: {jobDetails.companyName}</h2>
-          <h3>Job Title: {jobDetails.jobTitle}</h3>
+          <h2 className='text-lg'>Company Name: {jobDetails.companyName}</h2>
+          <h3 className='text-lg'>Job Title: {jobDetails.jobTitle}</h3>
           <p>Job Description: {jobDetails.jobDescription}</p>
           <p>Location: {jobDetails.location}</p>
           <p>Application Date: {jobDetails.applicationDate}</p>

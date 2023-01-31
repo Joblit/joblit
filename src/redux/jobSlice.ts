@@ -39,7 +39,6 @@ export const jobSlice = createSlice({
     addJob: (state, action: PayloadAction<ActionInterface>) => {
       action.payload.status = 'Applied';
       state.applications.push(action.payload);
-      console.log('updated applications');
     },
   },
 });
