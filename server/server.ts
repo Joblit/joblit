@@ -73,11 +73,11 @@ app.delete("/user", userController.verifyUser, userController.deleteUser, (req: 
 
 //create new app
 app.post('/new-app', applicationController.createApplication, (req: Request, res: Response) => {
-    res.status(200).json(res.locals.newApplication);
+    res.status(200).json(res.locals.application_id);
 });
 
 //get all apps
-app.get('/all-apps/:user_id', applicationController.getAllApplications, (req: Request, res: Response) => {
+app.get('/all-apps', applicationController.getAllApplications, (req: Request, res: Response) => {
     res.status(200).json(res.locals.allApplications);
 });
 

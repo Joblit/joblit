@@ -5,26 +5,27 @@ const db = require("../models/joblitModels");
 export const applicationController = {
   createApplication: async (req: Request, res: Response, next: NextFunction) => {
     try{
-      const {user_id, companyName, jobTitle, jobDescription, location, applicationDate, salaryRange, contactPerson, contactEmail, benefits, notes} = req.body;
+      const {user_id, companyname, jobtitle, jobdescription, location, applicationdate, salaryrange, contactperson, contactemail, benefits, notes, status} = req.body;
       const addApplicationQuery = {
-      text: "INSERT INTO applications (user_id, companyName, jobTitle, jobDescription, location, applicationDate, salaryRange, contactPerson, contactEmail, benefits, notes) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *",
+      text: "INSERT INTO applications (user_id, companyname, jobtitle, jobdescription, location, applicationdate, salaryrange, contactperson, contactemail, benefits, notes, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *",
       values: [
         user_id,
-        companyName,
-        jobTitle,
-        jobDescription,
+        companyname,
+        jobtitle,
+        jobdescription,
         location,
-        applicationDate,
-        salaryRange,
-        contactPerson,
-        contactEmail,
+        applicationdate,
+        salaryrange,
+        contactperson,
+        contactemail,
         benefits,
-        notes
+        notes,
+        status
       ],
     };
 
       const newApplication = await db.query(addApplicationQuery);
-      res.locals.newApplication = newApplication.rows[0];
+      res.locals.application_id = newApplication.rows[0].application_id;
       return next();
     } catch (error) {
       return next({
@@ -39,7 +40,7 @@ export const applicationController = {
 
   getAllApplications: async (req: Request, res: Response, next: NextFunction) => {
      try{
-      const {user_id} = req.params;
+      const {user_id} = req.query;
       const getAllApplicationsQuery = {
       text: "SELECT * FROM applications WHERE user_id = $1",
       values: [ user_id ],

@@ -1,25 +1,28 @@
 import React from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import { addJob } from '../redux/jobSlice';
 import { useAppDispatch } from '../redux/hooks';
 
 function AddJobModal(props: any) {
+  // const {user_id } = props;
+  const user_id = 1;
   const dispatch = useAppDispatch();
   // jobID value that will increment with each application added
-  let jobId = 0;
+  // let jobId = 0;
 
   function addJobFromModal(event: any) {
     // prevent the form from actually submitting
     event.preventDefault();
     // get the job details from the form
-    const companyName = event.target.companyName.value;
-    const jobTitle = event.target.jobTitle.value;
-    const jobDescription = event.target.jobDescription.value;
+    const companyname = event.target.companyName.value;
+    const jobtitle = event.target.jobTitle.value;
+    const jobdescription = event.target.jobDescription.value;
     const location = event.target.location.value;
-    const applicationDate = event.target.applicationDate.value;
+    const applicationdate = event.target.applicationDate.value;
     const salary = event.target.salary.value;
-    const contactPerson = event.target.contactPerson.value;
-    const contactEmail = event.target.contactEmail.value;
+    const contactperson = event.target.contactPerson.value;
+    const contactemail = event.target.contactEmail.value;
     const benefits = event.target.benefits.value;
     const notes = event.target.notes.value;
 
@@ -28,21 +31,48 @@ function AddJobModal(props: any) {
       event.target.children[i].value = '';
     }
 
-    jobId++;
+    let application_id = 0;
+    const status = 'Applied'
+
+    axios
+      .post('/new-app', {
+        user_id,
+        companyname,
+        jobtitle,
+        jobdescription,
+        location,
+        applicationdate,
+        salary,
+        contactperson,
+        contactemail,
+        benefits,
+        notes,
+        status
+      })
+      .then((response) => {
+        console.log('new job added! application_id:', response.data);
+        application_id = response.data;
+      })
+      .catch((error) => {
+        console.error('error adding new job: ', error);
+      });
+
     // dispatch the action to the addJob functuon from the job Slice, pass in the jobTitle string
     dispatch(
       addJob({
-        jobId,
-        companyName,
-        jobTitle,
-        jobDescription,
+        user_id,
+        application_id,
+        companyname,
+        jobtitle,
+        jobdescription,
         location,
-        applicationDate,
+        applicationdate,
         salary,
-        contactPerson,
-        contactEmail,
+        contactperson,
+        contactemail,
         benefits,
         notes,
+        status
       })
     );
   }

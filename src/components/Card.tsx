@@ -3,15 +3,14 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import JobModal from './JobModal';
 
 type cardProps = {
-  jobId: number;
-  company: string;
-  position: string;
-  onSiteRemote: string;
+  application_id: number;
+  companyname: string;
+  jobtitle: string;
+  location: string;
 };
 
 const DisplayCard = (props: cardProps) => {
-  console.log('in the display card function');
-  console.log('props.jobId: ', props.jobId);
+  const {application_id, companyname, jobtitle, location} = props;
 
   const cardStyle = {
     border: '1px solid black',
@@ -26,14 +25,14 @@ const DisplayCard = (props: cardProps) => {
 
   return (
     <div className='card' style={cardStyle}>
-      <label htmlFor={`jobModal${props.jobId}`} className='btn'>
+      <label htmlFor={`jobModal${application_id}`} className='btn'>
         Details
       </label>
-      <JobModal jobId={props.jobId} />
+      <JobModal application_id={application_id} /> 
       <div className='card-body'>
-        <div className='card-body-company'>{props.company}</div>
-        <div className='card-body-position'>{props.position}</div>
-        <div className='card-body-onsiteremote'>{props.onSiteRemote}</div>
+        <div className='card-body-company'>{companyname}</div>
+        <div className='card-body-position'>{jobtitle}</div>
+        <div className='card-body-onsiteremote'>{location}</div>
       </div>
       <div className='editBtn'>
         <button style={buttonStyle}>...</button>
