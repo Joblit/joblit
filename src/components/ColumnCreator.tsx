@@ -1,5 +1,7 @@
 import React from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { useAppSelector } from '../redux/hooks';
+import { RootState } from '../redux/store';
 import Card from './Card';
 
 type titleProps = {
@@ -16,58 +18,33 @@ const columnStyle = {
   height: 'auto',
 };
 
-const dummyCardInfo = [
-  {
-    company: 'Google',
-    position: 'Software Engineer',
-    onSiteRemote: 'remote',
-    status: 'Applied',
-  },
-  {
-    company: 'Shopify',
-    position: 'Software Engineer',
-    onSiteRemote: 'remote',
-    status: 'Applied',
-  },
-  {
-    company: 'Amazon',
-    position: 'Software Engineer',
-    onSiteRemote: 'on-site',
-    status: 'Interview',
-  },
-  {
-    company: 'Microsoft',
-    position: 'Software Engineer II',
-    onSiteRemote: 'hybrid',
-    status: 'Rejected',
-  },
-  {
-    company: 'Netflix',
-    position: 'Software Engineer',
-    onSiteRemote: 'remote',
-    status: 'Offer',
-  },
-];
-
 const ColumnCreator = (props: titleProps) => {
-  const rows = dummyCardInfo.map((item, index) => {
+  const applicationsList = useAppSelector(
+    (state: RootState) => state.jobs.applications
+  );
+
+  console.log(applicationsList);
+
+  const rows = applicationsList.map((item, index) => {
+    console.log('jobId: ', item.jobId);
     if (item.status === props.title) {
       return (
         <Card
           key={index}
-          company={item.company}
-          position={item.position}
-          onSiteRemote={item.onSiteRemote}
+          jobId={item.jobId}
+          company={item.companyName}
+          position={item.jobTitle}
+          onSiteRemote={item.location}
         />
       );
     }
   });
 
   return (
-    <div className="column" style={columnStyle}>
-      <div className="text-secondary">{props.title}</div>
-      <div className="column-body">
-        <div className="column-body-content">{rows}</div>
+    <div className='column' style={columnStyle}>
+      <div className='text-secondary'>{props.title}</div>
+      <div className='column-body'>
+        <div className='column-body-content'>{rows}</div>
       </div>
     </div>
   );

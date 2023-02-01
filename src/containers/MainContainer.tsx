@@ -1,7 +1,7 @@
 import React from 'react';
 import AddJobModal from '../components/AddJobModal';
 import Columns from '../components/ColumnCreator';
-import Modal from '../components/Modal';
+import JobModal from '../components/JobModal';
 
 const divStyle: {} = {
   display: 'flex',
@@ -39,11 +39,10 @@ const MainContainer = () => {
       <div className='column-btn'>
         <button>+</button>
       </div>
-      <div className='jobModal'>
-        {/* These will be moved somewhere else to be oppened with a button */}
-        <AddJobModal />
-        <Modal />
-      </div>
+      <label htmlFor='addJobModal' className='btn'>
+        Add Application
+      </label>
+      <AddJobModal />
     </div>
   );
 };

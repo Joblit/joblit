@@ -18,7 +18,7 @@ module.exports = {
     compress: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
     proxy: {
-      '/*': 'http://localhost:3000',
+      '/': 'http://localhost:3000',
     },
   },
   module: {
