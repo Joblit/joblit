@@ -87,7 +87,7 @@ export const userController = {
     }
   },
 
-  updateUser: (req: Request, res: Response, next: NextFunction) => {},
+  // updateUser: (req: Request, res: Response, next: NextFunction) => {},
 
   getAllUsers: async (req: Request, res: Response, next: NextFunction) => {
     try {
