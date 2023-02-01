@@ -23,18 +23,16 @@ const ColumnCreator = (props: titleProps) => {
     (state: RootState) => state.jobs.applications
   );
 
-  console.log(applicationsList);
 
   const rows = applicationsList.map((item, index) => {
-    console.log('jobId: ', item.jobId);
     if (item.status === props.title) {
       return (
         <Card
           key={index}
-          jobId={item.jobId}
-          company={item.companyName}
-          position={item.jobTitle}
-          onSiteRemote={item.location}
+          application_id={item.application_id}
+          companyname={item.companyname}
+          jobtitle={item.jobtitle}
+          location={item.location}
         />
       );
     }
