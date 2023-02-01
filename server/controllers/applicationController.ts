@@ -3,101 +3,136 @@ import { Request, Response, NextFunction } from "express";
 const db = require("../models/joblitModels");
 
 export const applicationController = {
-  createApplication: (req: Request, res: Response, next: NextFunction) => {
-    //  const addUserQuery = {
-    //       text: "INSERT INTO users (first_name, last_name, password, email) VALU
-    //  ($1, $2, $3, $4) RETURNING *",
-    //       values: [
-    //         req.body.first_name,
-    //         req.body.last_name,
-    //         req.body.password,
-    //         req.body.email,
-    //       ],
-    //     };
-    // db.query(addUserQuery, (error, data) => {
-    //       if (error) return next({ error });
-    //       // console.log(data);
-    //       res.status(200);
-    //       res.locals.response = data.rows[0];
-    //       return next();
-    //     });
+  createApplication: async (req: Request, res: Response, next: NextFunction) => {
+    try{
+      const {user_id, companyName, jobTitle, jobDescription, location, applicationDate, salaryRange, contactPerson, contactEmail, benefits, notes} = req.body;
+      const addApplicationQuery = {
+      text: "INSERT INTO applications (user_id, companyName, jobTitle, jobDescription, location, applicationDate, salaryRange, contactPerson, contactEmail, benefits, notes) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *",
+      values: [
+        user_id,
+        companyName,
+        jobTitle,
+        jobDescription,
+        location,
+        applicationDate,
+        salaryRange,
+        contactPerson,
+        contactEmail,
+        benefits,
+        notes
+      ],
+    };
+
+      const newApplication = await db.query(addApplicationQuery);
+      res.locals.newApplication = newApplication.rows[0];
+      return next();
+    } catch (error) {
+      return next({
+        log: 'Error while creating application',
+        status: 400,
+        message: {
+          err: `Error from applicationController.createApplication, proper inputs not received ${error}`
+        }
+      });
+    }
   },
 
-  // getAllApplications: (req: Request, res: Response, next: NextFunction) => {
-    // const getUserQuery = {
-    //   text: "SELECT u.*, p.longitude,p.latitude, p.description, p.name, p.pin_id FROM users u LEFT JOIN pins p ON u.user_id = p.user_id WHERE u.user_id = $1",
-    //   // text: 'SELECT u.*, p.longitude,p.latitude, p.description, p.name, p.pin_id',
-    //   values: [req.body.user_id || res.locals.user_id],
-    // };
-    // db.query(getUserQuery, (err, data) => {
-    //   if (err) return next({ err });
-    //   // console.log(data);
-    //   const sendBack = {
-    //     user_id: data.rows[0].user_id,
-    //     username: data.rows[0].username,
-    //     pins: data.rows.map((x) => {
-    //       return {
-    //         pin_id: x.pin_id,
-    //         position: { lat: x.latitude, lng: x.longitude },
-    //         name: x.name,
-    //         description: x.description,
-    //       };
-    //     }),
-    //   };
-    //   res.locals.response = sendBack;
-    //   // res.locals.response = {
-    //   //   id: 4,
-    //   //   name: 'New York, New York',
-    //   //   position: { lat: 40.712776, lng: -74.005974 },
-    //   //   description: 'I went to the Big Apple',
-    //   // };
-    //   return next();
-    // });
-  // },
+  getAllApplications: async (req: Request, res: Response, next: NextFunction) => {
+     try{
+      const {user_id} = req.params;
+      const getAllApplicationsQuery = {
+      text: "SELECT * FROM applications WHERE user_id = $1",
+      values: [ user_id ],
+    };
 
-  // getSingleApplication: (req: Request, res: Response, next: NextFunction) => {
-    // const getUserQuery = {
-    //   text: "SELECT u.*, p.longitude,p.latitude, p.description, p.name, p.pin_id FROM users u LEFT JOIN pins p ON u.user_id = p.user_id WHERE u.user_id = $1",
-    //   // text: 'SELECT u.*, p.longitude,p.latitude, p.description, p.name, p.pin_id',
-    //   values: [req.body.user_id || res.locals.user_id],
-    // };
-    // db.query(getUserQuery, (err, data) => {
-    //   if (err) return next({ err });
-    //   // console.log(data);
-    //   const sendBack = {
-    //     user_id: data.rows[0].user_id,
-    //     username: data.rows[0].username,
-    //     pins: data.rows.map((x) => {
-    //       return {
-    //         pin_id: x.pin_id,
-    //         position: { lat: x.latitude, lng: x.longitude },
-    //         name: x.name,
-    //         description: x.description,
-    //       };
-    //     }),
-    //   };
-    //   res.locals.response = sendBack;
-    //   // res.locals.response = {
-    //   //   id: 4,
-    //   //   name: 'New York, New York',
-    //   //   position: { lat: 40.712776, lng: -74.005974 },
-    //   //   description: 'I went to the Big Apple',
-    //   // };
-    //   return next();
-    // });
-  // },
+      const allApplications = await db.query(getAllApplicationsQuery);
+      res.locals.allApplications = allApplications.rows;
+      return next();
+    } catch (error) {
+      return next({
+        log: 'Error while retrieving applications',
+        status: 400,
+        message: {
+          err: `Error from applicationController.getAllApplications: ${error}`
+        }
+      });
+    }
+  },
 
-  // deleteApplication: (req: Request, res: Response, next: NextFunction) => {
-    // const deleteUserQuery = {
-    //   text: "DELETE FROM users WHERE user_id=$1",
-    //   values: [req.body.user_id],
-    // };
-    // db.query(deleteUserQuery, (err, data) => {
-    //   if (err) return next({ err });
-    //   console.log(data);
-    //   return next();
-    // });
-  // },
+  getSingleApplication: async (req: Request, res: Response, next: NextFunction) => {
+    try{
+      const {app_id} = req.params;
+      const getSingleApplicationsQuery = {
+      text: "SELECT * FROM applications WHERE application_id = $1",
+      values: [ app_id ],
+    };
 
-  // updateApplication: (req: Request, res: Response, next: NextFunction) => {},
+      const application = await db.query(getSingleApplicationsQuery);
+      res.locals.application = application.rows[0];
+      return next();
+    } catch (error) {
+      return next({
+        log: 'Error while retrieving application',
+        status: 400,
+        message: {
+          err: `Error from applicationController.getSingleApplication: ${error}`
+        }
+      });
+    }
+  },
+
+  deleteApplication: async (req: Request, res: Response, next: NextFunction) => {
+    try{
+      const { app_id } = req.params;
+         const deleteAppQuery = {
+        text: "DELETE FROM applications WHERE application_id=$1",
+        values: [app_id],
+     };
+      await db.query(deleteAppQuery);
+
+      return next();
+    } catch (error) {
+      return next({
+        log: 'Error while deleting application',
+        status: 400,
+        message: {
+          err: `Error from userController.verifyUser, application could not be deleted ${error}`
+        }
+      });
+    }
+  },
+
+  updateApplication: async (req: Request, res: Response, next: NextFunction) => {
+     try{
+      const {companyName, jobTitle, jobDescription, location, applicationDate, salaryRange, contactPerson, contactEmail, benefits, notes} = req.body;
+      const {app_id} = req.params;
+      const updateApplicationQuery = {
+      text: "UPDATE applications SET companyName=$1, jobTitle=$2, jobDescription=$3, location=$4, applicationDate=$5, salaryRange=$6, contactPerson=$7, contactEmail=$8, benefits=$9, notes=$10 WHERE application_id=$11",
+      values: [
+        companyName,
+        jobTitle,
+        jobDescription,
+        location,
+        applicationDate,
+        salaryRange,
+        contactPerson,
+        contactEmail,
+        benefits,
+        notes,
+        app_id
+      ],
+    };
+
+      await db.query(updateApplicationQuery);
+      return next();
+    } catch (error) {
+      return next({
+        log: 'Error while updated application',
+        status: 400,
+        message: {
+          err: `Error from applicationController.updateApplication, proper inputs not received ${error}`
+        }
+      });
+    }
+  }
 };
