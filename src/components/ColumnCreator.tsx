@@ -18,12 +18,15 @@ const columnStyle = {
   height: 'auto',
 };
 
+// grab application from the database on first render
+function getApplications() {
+  fetch('/applications');
+}
+
 const ColumnCreator = (props: titleProps) => {
   const applicationsList = useAppSelector(
     (state: RootState) => state.jobs.applications
   );
-
-  console.log(applicationsList);
 
   const rows = applicationsList.map((item, index) => {
     console.log('jobId: ', item.jobId);

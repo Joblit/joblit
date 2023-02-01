@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import jobReducer from './jobSlice';
+import userReducer from './userSlice';
 
 export const store = configureStore({
   reducer: {
     // additional reducers go here
     jobs: jobReducer,
+    user: userReducer,
   },
 });
 
