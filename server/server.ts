@@ -9,9 +9,10 @@ import cors from "cors";
 import { ServerError } from "../types";
 import path from "path";
 import { userController } from "./controllers/userController";
-import { appRouter } from "./routes/appRouter";
+import { applicationController } from "./controllers/applicationController";
 import { cookieController } from "./controllers/cookieController";
 import { sessionController } from "./controllers/sessionController";
+// const appRouter = require('./routes/appRouter'); 
 const cookieParser = require('cookie-parser');
 // const bodyParser = require('body-parser');
 
@@ -29,7 +30,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 //application router
-app.use('/application', appRouter);
+// app.use("/application", appRouter);
 
 //handle user requests
 app.post(
@@ -70,8 +71,35 @@ app.delete("/user", userController.verifyUser, userController.deleteUser, (req: 
   res.send(`user with id number:${res.locals.user_id} was deleted`);
 });
 
+//create new app
+app.post('/new-app', applicationController.createApplication, (req: Request, res: Response) => {
+    res.status(200).json(res.locals.newApplication);
+});
+
+//get all apps
+app.get('/all-apps/:user_id', applicationController.getAllApplications, (req: Request, res: Response) => {
+    res.status(200).json(res.locals.allApplications);
+});
+
+
+// //retrieve single app
+app.get('/single-app/:app_id', applicationController.getSingleApplication, (req: Request, res: Response) => {
+    res.status(200).json(res.locals.application);
+});
+
+// //delete an app
+app.delete('/delete-app/:app_id', applicationController.deleteApplication, (req: Request, res: Response) => {
+    res.status(200).json();
+});
+
+// //update single app
+app.patch('/update-app/:app_id', applicationController.updateApplication, (req: Request, res: Response) => {
+    res.status(200).json();
+});
+
+
 //checks if user is logged in
-app.get('/checkSession', sessionController.isLoggedIn, (req, res) => {
+app.get('/check-session', sessionController.isLoggedIn, (req, res) => {
   return res.status(200).json(res.locals.loggedIn);
 });
 
