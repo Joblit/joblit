@@ -41,6 +41,7 @@ Don't forget to give the project a star ⭐️! Thanks again!
    git clone <your-repo-url>
    ```
 3. Create your Feature Branch
+
    ```
    git checkout -b feature/AmazingFeature
    ```
@@ -53,30 +54,27 @@ Don't forget to give the project a star ⭐️! Thanks again!
    ```
    git push origin feature/AmazingFeature
    ```
-10. Open a Pull Request
-
+6. Open a Pull Request
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 ## Built with
-   💻 
+
+💻
 
 - [React](https://reactjs.org/)
+- [Redux toolkit](https://redux-toolkit.js.org/)
 - [NodeJS](https://nodejs.org/en/)
 - [Express](https://expressjs.com/)
-- [Material UI](https://mui.com/)
-- [Jest](https://jestjs.io/)
+- [Daisy UI](https://daisyui.com/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 ## License
 
 Distributed under the MIT License.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 ## Authors:
 
@@ -88,18 +86,14 @@ Chase Benjamin - [Github](https://github.com/chasebenj) || [Linkedin](https://ww
 
 Tomas Kim - [Github](https://github.com/tk0885) || [Linkedin](www.linkedin.com/in/tomasjskim)
 
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/oslabs-beta/cloudband.svg?style=for-the-badge
-[contributors-url]: https://github.com/oslabs-beta/cloudband/graphs/contributors
-[stars-shield]: https://img.shields.io/github/stars/oslabs-beta/cloudband.svg?style=for-the-badge
-[stars-url]: https://github.com/oslabs-beta/cloudband/stargazers
-[license-shield]: https://img.shields.io/github/license/oslabs-beta/cloudband.svg?style=for-the-badge
-[license-url]: https://github.com/oslabs-beta/cloudband/blob/master/LICENSE.txt
-
-
+[contributors-shield]: https://img.shields.io/github/contributors/Joblit/joblit.svg?style=for-the-badge
+[contributors-url]: https://github.com/Joblit/joblit/graphs/contributors
+[stars-shield]: https://img.shields.io/github/stars/Joblit/joblit.svg?style=for-the-badge
+[stars-url]: https://github.com/Joblit/joblit/stargazers
+[license-shield]: https://img.shields.io/github/license/Joblit/joblit.svg?style=for-the-badge
+[license-url]: https://github.com/Joblit/joblit/blob/master/LICENSE
