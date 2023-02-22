@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // interface for the initial state and each expected value
 interface ActionInterface {
-  user_id: number,
+  user_id: number;
   application_id: number;
   companyname: string;
   jobtitle: string;
@@ -14,7 +14,7 @@ interface ActionInterface {
   contactemail?: string;
   benefits?: string;
   notes?: string;
-  status?: 'Applied' | 'Interview' | 'Rejected' | 'Offer';
+  status?: string;
 }
 
 interface jobSliceState {
@@ -39,12 +39,19 @@ export const jobSlice = createSlice({
   initialState,
   reducers: {
     addJob: (state, action: PayloadAction<ActionInterface>) => {
-      // action.payload.status = 'Applied';
       state.applications.push(action.payload);
+    },
+    editStatus: (state, action: PayloadAction<ActionInterface>) => {
+      const { application_id } = action.payload;
+      for (let i = 0; i < state.applications.length; i++) {
+        if (state.applications[i].application_id === application_id) {
+          state.applications[i].status = action.payload.status;
+        }
+      }
     },
   },
 });
 
 // each action should be exported
-export const { addJob } = jobSlice.actions;
+export const { addJob, editStatus } = jobSlice.actions;
 export default jobSlice.reducer;
